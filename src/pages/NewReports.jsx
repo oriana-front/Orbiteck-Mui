@@ -21,6 +21,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import { DrawerHeader } from '../components/Menu/MenuLista';
 
 function createData(nombre, diaSemana, hora, correo, formato ,accion) {
   return {
@@ -153,6 +154,8 @@ function EnhancedTableHead(props) {
         ))}z
       </TableRow>
     </TableHead>
+    
+    
   );
 }
 
@@ -169,6 +172,8 @@ function EnhancedTableToolbar(props) {
   const { numSelected } = props;
 
   return (
+    <>
+    <DrawerHeader/>
     <Toolbar
       sx={{
         pl: { sm: 2 },
@@ -179,6 +184,7 @@ function EnhancedTableToolbar(props) {
         }),
       }}
     >
+      
       {numSelected > 0 ? (
         <Typography
           sx={{ flex: '1 1 100%' }}
@@ -213,6 +219,9 @@ function EnhancedTableToolbar(props) {
         </Tooltip>
       )}
     </Toolbar>
+    
+    </>
+    
   );
 }
 
