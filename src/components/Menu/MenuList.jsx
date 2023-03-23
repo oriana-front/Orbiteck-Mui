@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Box} from '@mui/material';
+
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
@@ -13,12 +13,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { Avatar } from '@mui/material';
-           
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box } from '@mui/material';
+import MenuCategoria from '../MenuCategoria';
+const drawerWidth = 300;
 
-const drawerWidth = 240;
-
-export default function PermanentDrawerLeft() {
+export default function MenuList(){
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -26,10 +25,9 @@ export default function PermanentDrawerLeft() {
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar sx={{ flexGrow: 1, bgcolor: 'background.default', p: 5 }}></Toolbar>
+         <Toolbar sx={{ flexGrow: 1, bgcolor: 'background.default', p: 5 }}></Toolbar>
       </AppBar>
       <Drawer
-        
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -47,19 +45,24 @@ export default function PermanentDrawerLeft() {
          <b>ORBITEC </b>   
           </Typography>
         </Toolbar>
+      
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+       <div>
+        <Accordion>
+           <AccordionActions>
+         <MenuCategoria saveIcon={true} homeIcon={true} >Inicio</MenuCategoria>
+        </AccordionActions> 
+        </Accordion>
+        
+     
+        
+        <Accordion>
+           <AccordionActions>
+          <MenuCategoria saveIcon={true} homeIcon={false}>Reportes guardados / programados</MenuCategoria>
+        </AccordionActions> 
+        </Accordion>
+      
+       </div>
         <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -76,7 +79,7 @@ export default function PermanentDrawerLeft() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
         <Toolbar />
         <Typography paragraph>
@@ -86,7 +89,7 @@ export default function PermanentDrawerLeft() {
           imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
           Convallis convallis tellus id interdum velit laoreet id donec ultrices.
           Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          adipiscing bibendum est ultäicies integer quis. Cursus euismod quis viverra
           nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
           leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
           feugiat vivamus at augue. At augue eget arcu dictum varius duis at
@@ -94,7 +97,7 @@ export default function PermanentDrawerLeft() {
           sapien faucibus et molestie ac.
         </Typography>
         <Typography paragraph>
-          
+         hola
         </Typography>
       </Box>
     </Box>
