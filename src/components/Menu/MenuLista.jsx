@@ -18,6 +18,7 @@ import { useAppContext } from '../../content/Provider';
 import Welcome from '../../pages/Welcom';
 import { useNavigate } from 'react-router-dom';
 import NewReports from '../../pages/NewReports';
+import GenerarReporte from '../../pages/GenerarReporte';
 import { ExpandMoreOutlined, List, ListAlt, RestoreOutlined } from '@mui/icons-material';
 import { blue, red } from '@mui/material/colors';
 
@@ -145,7 +146,7 @@ export default function MenuLista() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <div disablePadding sx={{ display: 'block' }}>
+        <div  sx={{ display: 'block' }}>
 
         {/* Botón Inicio*/}
         {["Inicio"].map((text, index)=>(
@@ -192,10 +193,7 @@ export default function MenuLista() {
                 }
                   return (
                     <BottomNavigation  sx={{ pl:1 }} key={index}
-                    onClick={(e)=>{
-                      e.preventDefault();
-                    replaceContent(<NewReports/>)
-                    }}
+                    onClick={()=> setContent("GenerarReporte")}
                     {...newProps}>
                       <ListItemIcon><List/></ListItemIcon>
                       <ListItemText secondary={menu_item.descripcion} sx={{ opacity: open ? 1 : 0 }} ></ListItemText>
@@ -210,6 +208,7 @@ export default function MenuLista() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {content== "Welcome" && <Welcome/>} 
           {content== "NewReports" && <NewReports/>}
+          {content== "GenerarReporte" && <GenerarReporte/>}
       </Box>
      
       
