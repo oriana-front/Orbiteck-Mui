@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemText from '@mui/material/ListItemText';
-import { Accordion,AccordionActions,AccordionDetails,AccordionSummary, Avatar, BottomNavigation, BottomNavigationAction, ListItemIcon, MenuItem } from '@mui/material';
+import { Accordion,AccordionDetails,AccordionSummary, Avatar, BottomNavigation,  ListItemIcon } from '@mui/material';
 import MenuCategoria from './MenuCategoria';
 import { useAppContext } from '../../content/Provider';
 import Welcome from '../../pages/Welcom';
@@ -20,7 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import NewReports from '../../pages/NewReports';
 import GenerarReporte from '../../pages/GenerarReporte';
 import { ExpandMoreOutlined, List, ListAlt, RestoreOutlined } from '@mui/icons-material';
-import { blue, red } from '@mui/material/colors';
+import Header from './Header';
+
 
 
 const drawerWidth = 380;
@@ -73,6 +74,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -90,12 +92,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const settings = ['Cerrar sesión'];
+
 export default function MenuLista() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const { menuList, selectMenu, setSelectMenu, replaceContent } = useAppContext(); 
   const [content,setContent]=useState("Welcome");
-  
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const navigate=useNavigate();
   const removeContent=()=>{
     setContent(()=>content);
@@ -108,6 +113,8 @@ export default function MenuLista() {
     setOpen(true);
   };
 
+  
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -118,6 +125,7 @@ export default function MenuLista() {
       <CssBaseline />
       <AppBar position="fixed" open={open} color="default">
         <Toolbar>
+ <Toolbar>
           <IconButton
             color="error"
             aria-label="open drawer"
@@ -130,14 +138,18 @@ export default function MenuLista() {
           >
             <MenuIcon />
           </IconButton>
-
-          <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
-          <Typography marginLeft={1} variant="h6" noWrap component="div">
+          <Typography margin={1} variant="h6" noWrap component="div">
             ORBITEC
           </Typography>
+          <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
+          </Toolbar>
+          <Toolbar sx={{marginLeft:131}}>
+           <Header/>
+          </Toolbar>
 
-          
         </Toolbar>
+       
+        
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>

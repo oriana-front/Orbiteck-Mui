@@ -7,9 +7,6 @@ import GenerarReporte from '../pages/GenerarReporte'
 import Login from '../pages/login/Login'
 import NewReports from '../pages/NewReports'
 import Welcom from '../pages/Welcom'
-
-
-
 import Root from './Root'
 
 const RouterApp = () => {
@@ -17,7 +14,7 @@ const RouterApp = () => {
    <Routes>
     <Route path="/"element={<Root/>}>
     <Route index element={<Login/>} ></Route>
-    <Route path='Menu' element={<MenuLista/>}></Route>
+    <Route path='/new-reports' element={<MenuLista/>}></Route>
     <Route path='Bienvenidos' element={<Welcom/>}></Route>
     <Route path='/Menu/NewReports' element={<NewReports/>}></Route>
     <Route path='/Menu/GenerarReporte' element={<GenerarReporte/>}></Route>
