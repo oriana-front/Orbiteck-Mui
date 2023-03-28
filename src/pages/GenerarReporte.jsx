@@ -8,6 +8,11 @@ import Typography from '@mui/material/Typography';
 import { DrawerHeader } from '../components/Menu/MenuLista';
 import { Container, margin } from '@mui/system';
 import { grey, red } from '@mui/material/colors';
+import ReportsColums from './ReportsColums';
+import ReportsOpcions from './ReportsOpcions';
+import ReportsUnidades from './ReportsUnidades';
+import ReportsSave from './ReportsSave';
+import ReportProvider from '../content/ReportProvider';
 
 const steps = ['Fecha y Unidades', 'Opciones', 'Columnas','Finalizar'];
 
@@ -37,6 +42,22 @@ export default function GenerarReporte() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const getStepContent=(step)=>{
+     switch(step){
+      case 0:
+        return (<ReportsUnidades/>)
+      case 1:
+        return(<ReportsOpcions/>)
+      case 2:
+        return (<ReportsColums/>)  
+      case 3:
+        return (<ReportsSave/>) 
+      default:return "No hay opciones para este reporte"   
+     }
+     
+  }
+
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
@@ -82,6 +103,7 @@ export default function GenerarReporte() {
           );
         })}
       </Stepper>
+      
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
@@ -93,8 +115,9 @@ export default function GenerarReporte() {
           </Box>
         </React.Fragment>
       ) : (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+        <React.Fragment >
+         <form>{getStepContent(activeStep)}</form>
+          
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
