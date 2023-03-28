@@ -74,7 +74,7 @@ export default function Header({ onOpen, ...rest }) {
 
   const handleLogout = () => {
     removeLogin();
-    navigate("/menu");
+    navigate("/new-reports");
     onCloseAlert();
   };
 

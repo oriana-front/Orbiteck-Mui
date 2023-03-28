@@ -12,13 +12,14 @@ import Root from './Root'
 const RouterApp = () => {
   return (
    <Routes>
-    <Route path="/"element={<Root/>}>
-    <Route index element={<Login/>} ></Route>
+    <Route path="*" element={<h1>No encontrado... (404)</h1>}></Route>
+    <Route path="/" element={<Root />}></Route>
+    <Route path="/login" element={<Login />}></Route>
     <Route path='/new-reports' element={<MenuLista/>}></Route>
-    <Route path='Bienvenidos' element={<Welcom/>}></Route>
-    <Route path='/Menu/NewReports' element={<NewReports/>}></Route>
-    <Route path='/Menu/GenerarReporte' element={<GenerarReporte/>}></Route>
-    </Route>
+    <Route path='/Welcome' element={<Welcom/>}></Route>
+    <Route path='/new-reports/NewReports' element={<NewReports/>}></Route>
+    <Route path='/new-reports/GenerarReporte' element={<GenerarReporte/>}></Route>
+    
     <Route path='Error404' element={<Error404/>} ></Route>
    </Routes>
   )

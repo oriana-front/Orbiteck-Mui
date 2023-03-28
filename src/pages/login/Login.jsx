@@ -14,35 +14,34 @@ import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { FormControl, FormHelperText, FormLabel, Input } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { baseUrl } from '../../helpers/config';
+import axios from 'axios';
 
 
 export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   
-  const{handleSubmit,register}=useForm();
-
-  const onSummit = (data) => {
+  const{handleSubmit,register, formState:{errors}}=useForm();
+   
+  const onSubmit = (data) => {
     setIsSubmitting(true);
+    console.log(data);
     axios
       .post(`${baseUrl()}/users/login/`, data)
       .then((response) => {
-        saveLogin(response.data.data);
-        navigate("/new-reports");
+         console.log("response", response.data.data);
+        saveLogin(response.data.data); // -- almacenar conjunto de data (dentro del objeto data de axios)
       })
       .catch((data) => {
-        toast({
-          title: `${data.response.data.errors[0]}`,
-          status: "error",
-          isClosable: true,
-        });
+        console.log("data", data.response);
+        console.log("error")
         setIsSubmitting(false);
       });
-  }
-
+  };
 
   return (
-   <form onSubmit={handleSubmit(onSummit)}>
+   <form onSubmit={handleSubmit(onSubmit)}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -59,37 +58,31 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-            <FormControl>
+          <FormControl id="name" >
               <FormLabel>Usuario</FormLabel>
-              <Input 
-                type='text'
-                id="username"
-                label="Usuario"
+              <Input
+                type="text"
                 name="username"
-                autoComplete="username"
                 {...register("username", {
                   required: "Usuario requerido",
                   minLength: { value: 4, message: "El usuario debe tener 4 caracteres como minimo" },
                 })}
               />
             </FormControl>
-            <FormHelperText></FormHelperText>
+            <FormHelperText> {errors.username && errors.username.message}</FormHelperText>
            
-            <FormControl>
-              <FormLabel>Contraseña</FormLabel>
+            <FormControl id="password" >
+              <FormLabel>Clave</FormLabel>
               <Input
+                type="password"
                 name="password"
-                label="Contraseña"
-                type= "password"
-                id="password"
-                autoComplete="current-password"
                 {...register("password", {
                   required: "Clave requerida",
                   minLength: { value: 4, message: "La clave debe tener 4 caracteres como minimo" },
                 })}
               />
             </FormControl>
-             <FormHelperText> </FormHelperText>
+             <FormHelperText>{errors.password && errors.password.message} </FormHelperText>
 
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -100,7 +93,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, }}
-              onClick={onSummit}
+              is={isSubmitting}
             >
               Ingresar
             </Button>

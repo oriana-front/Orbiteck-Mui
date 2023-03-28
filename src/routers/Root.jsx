@@ -1,16 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const Root = () => {
+function Root() {
+  const navigate = useNavigate();
 
-  return (
-  
- <div>
-      <Outlet/>   
-    </div>
+  useEffect(() => {
+    navigate("/login");
+  }, []);
 
-   
-  )
+  return <></>;
+
 }
 
 export default Root
