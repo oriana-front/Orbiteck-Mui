@@ -12,15 +12,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemText from '@mui/material/ListItemText';
-import { Accordion,AccordionDetails,AccordionSummary, Avatar, BottomNavigation,  ListItemIcon } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, BottomNavigation, ListItemIcon } from '@mui/material';
 import MenuCategoria from './MenuCategoria';
 import { useAppContext } from '../../content/Provider';
 import Welcome from '../../pages/Welcom';
 import { useNavigate } from 'react-router-dom';
 import NewReports from '../../pages/NewReports';
+import ReportLayout from '../../pages/ReportLayout';
 import GenerarReporte from '../../pages/GenerarReporte';
 import { ExpandMoreOutlined, List, ListAlt, RestoreOutlined } from '@mui/icons-material';
 import Header from './Header';
+
 
 
 
@@ -47,7 +49,7 @@ const closedMixin = (theme) => ({
   },
 });
 
-export  const DrawerHeader = styled('div')(({ theme }) => ({
+export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -97,13 +99,13 @@ const settings = ['Cerrar sesión'];
 export default function MenuLista() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
-  const { menuList, selectMenu, setSelectMenu, replaceContent } = useAppContext(); 
-  const [content,setContent]=useState("Welcome");
+  const { menuList, selectMenu, setSelectMenu, replaceContent } = useAppContext();
+  const [content, setContent] = useState("Welcome");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const navigate=useNavigate();
-  const removeContent=()=>{
-    setContent(()=>content);
+  const navigate = useNavigate();
+  const removeContent = () => {
+    setContent(() => content);
   }
 
   const handleSelectedMenu = (menuItem) => {
@@ -113,7 +115,7 @@ export default function MenuLista() {
     setOpen(true);
   };
 
-  
+
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -125,31 +127,31 @@ export default function MenuLista() {
       <CssBaseline />
       <AppBar position="fixed" open={open} color="default">
         <Toolbar>
- <Toolbar>
-          <IconButton
-            color="error"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography margin={1} variant="h6" noWrap component="div">
-            ORBITEC
-          </Typography>
-          <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
+          <Toolbar>
+            <IconButton
+              color="error"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography margin={1} variant="h6" noWrap component="div">
+              ORBITEC
+            </Typography>
+            <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
           </Toolbar>
-          <Toolbar sx={{marginLeft:131}}>
-           <Header/>
+          <Toolbar sx={{ marginLeft: 131 }}>
+            <Header />
           </Toolbar>
 
         </Toolbar>
-       
-        
+
+
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
@@ -158,72 +160,73 @@ export default function MenuLista() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <div  sx={{ display: 'block' }}>
+        <div sx={{ display: 'block' }}>
 
-        {/* Botón Inicio*/}
-        {["Inicio"].map((text, index)=>(
-         <Accordion  disableGutters >
-          <AccordionSummary  type='IconButton' disabled={false} 
-              onClick={()=>setContent("Welcome")}  
-        >
-              <MenuCategoria  saveIcon={true} homeIcon={true} />  
-             <ListItemText secondary={text}  sx={{ opacity: open ? 1 : 0,marginLeft:2}}></ListItemText>
-               </AccordionSummary>
-         </Accordion>))}
+          {/* Botón Inicio*/}
+          {["Inicio"].map((text, index) => (
+            <Accordion disableGutters >
+              <AccordionSummary type='IconButton' disabled={false}
+                onClick={() => setContent("Welcome")}
+              >
+                <MenuCategoria saveIcon={true} homeIcon={true} />
+                <ListItemText secondary={text} sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}></ListItemText>
+              </AccordionSummary>
+            </Accordion>))}
 
           {/* Botón guardar reportes*/}
-         <Accordion disableGutters >
-              {["Reportes guardados"].map((text)=>(
-                  <AccordionSummary ype='IconButton' disabled={false} 
-                  onClick={()=>setContent("NewReports")}
-                 >
-              <MenuCategoria saveIcon={true} homeIcon={false}  />  
-             <ListItemText  secondary={text} sx={{ opacity: open ? 1 : 0,marginLeft:2 }}></ListItemText>
-               </AccordionSummary>
-              ))}
-         </Accordion>
+          <Accordion disableGutters >
+            {["Reportes guardados"].map((text) => (
+              <AccordionSummary ype='IconButton' disabled={false}
+                onClick={() => setContent("NewReports")}
+              >
+                <MenuCategoria saveIcon={true} homeIcon={false} />
+                <ListItemText secondary={text} sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}></ListItemText>
+              </AccordionSummary>
+            ))}
+          </Accordion>
 
-         {/*Consumir lista de menu*/}
-         {menuList.map((menu_category, index) => (
-         <Accordion key={index} disableGutters>
-              {[menu_category.descripcion].map((text)=>(
-                  <AccordionSummary   expandIcon={<ExpandMoreOutlined/>}>
-              <MenuCategoria></MenuCategoria>  
-             <ListItemText secondary={text} sx={{ opacity: open ? 1 : 0 }}></ListItemText>
-               </AccordionSummary>
+          {/*Consumir lista de menu*/}
+          {menuList.map((menu_category, index) => (
+            <Accordion key={index} disableGutters>
+              {[menu_category.descripcion].map((text) => (
+                <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
+                  <MenuCategoria></MenuCategoria>
+                  <ListItemText secondary={text} sx={{ opacity: open ? 1 : 0 }}></ListItemText>
+                </AccordionSummary>
               ))}
-               {/* consumir listado de reportes*/}
-              
+              {/* consumir listado de reportes*/}
+
               <AccordionDetails>
-                 {menu_category.reportes.map((menu_item,index)=>{
-                let newProps = {};
-                if(menu_item.id==selectMenu.id){
-                  newProps = {
-                    backgroundColor: "red.400",
-                    color: "white",
-                  };
-                }
+                {menu_category.reportes.map((menu_item, index) => {
+                  let newProps = {};
+                  if (menu_item.id == selectMenu.id) {
+                    newProps = {
+                      backgroundColor: "red.400",
+                      color: "white",
+                    };
+                  }
                   return (
-                    <BottomNavigation  sx={{ pl:1 }} key={index}
-                    onClick={()=> setContent("GenerarReporte")}
-                    {...newProps}>
-                      <ListItemIcon><List/></ListItemIcon>
+                    <BottomNavigation sx={{ pl: 1 }} key={index}
+                      onClick={() => setContent("ReportLayout")}
+                      {...newProps}>
+                      <ListItemIcon><List /></ListItemIcon>
                       <ListItemText secondary={menu_item.descripcion} sx={{ opacity: open ? 1 : 0 }} ></ListItemText>
                     </BottomNavigation>
-                  )})}
-                  
+                  )
+                })}
+
               </AccordionDetails>
-         </Accordion>))}
-       </div>
+            </Accordion>))}
+        </div>
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {content== "Welcome" && <Welcome/>} 
-          {content== "NewReports" && <NewReports/>}
-          {content== "GenerarReporte" && <GenerarReporte/>}
+        {content == "Welcome" && <Welcome />}
+        {content == "NewReports" && <NewReports />}
+        {content == "ReportLayout" && <ReportLayout />}
       </Box>
-     
-      
+
+
     </Box>
   );
 }

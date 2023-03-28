@@ -16,7 +16,7 @@ import { FormControl, FormHelperText, FormLabel, Input } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { baseUrl } from '../../helpers/config';
 import axios from 'axios';
-
+import { saveLogin } from '../../helpers/localStorage';
 
 export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,11 +31,11 @@ export default function Login() {
       .post(`${baseUrl()}/users/login/`, data)
       .then((response) => {
          console.log("response", response.data.data);
-        saveLogin(response.data.data); // -- almacenar conjunto de data (dentro del objeto data de axios)
+        saveLogin(response.data.data); 
+        navigate("/new-reports");
       })
       .catch((data) => {
-        console.log("data", data.response);
-        console.log("error")
+        console.log("error",data)
         setIsSubmitting(false);
       });
   };
@@ -92,8 +92,8 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, }}
-              is={isSubmitting}
+              sx={{ mt: 3, mb: 2}}
+              loading={isSubmitting}
             >
               Ingresar
             </Button>

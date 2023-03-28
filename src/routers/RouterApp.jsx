@@ -6,6 +6,7 @@ import Error404 from '../error/Error404'
 import GenerarReporte from '../pages/GenerarReporte'
 import Login from '../pages/login/Login'
 import NewReports from '../pages/NewReports'
+import ReportLayout from '../pages/ReportLayout'
 import Welcom from '../pages/Welcom'
 import Root from './Root'
 
@@ -18,7 +19,7 @@ const RouterApp = () => {
     <Route path='/new-reports' element={<MenuLista/>}></Route>
     <Route path='/Welcome' element={<Welcom/>}></Route>
     <Route path='/new-reports/NewReports' element={<NewReports/>}></Route>
-    <Route path='/new-reports/GenerarReporte' element={<GenerarReporte/>}></Route>
+    <Route path='/new-reports/ReportLayout' element={<ReportLayout/>}></Route>
     
     <Route path='Error404' element={<Error404/>} ></Route>
    </Routes>
