@@ -104,8 +104,10 @@ export default function Header({ onOpen, ...rest }) {
         <Typography variant="body2"  >
         {`${user_data.first_name} ${user_data.last_name}`.trim()}
            <Typography variant="caption" display="block">
-            
-          
+           {`${user_data.first_name} ${user_data.last_name}`.trim()}
+            <Typography variant="caption" display="block"> 
+            {user_data.username}
+            </Typography>
             </Typography>
            
       </Typography>
