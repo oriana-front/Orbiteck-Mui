@@ -1,10 +1,8 @@
-
 import Select from "react-select";
 import { Box } from "@mui/system";
 import { FormControl, FormLabel, Typography } from "@mui/material";
 import { useReportContext } from "../content/ReportProvider";
 import { useAppContext } from "../content/Provider";
-
 
 function ReportsOption() {
   /* extraer parametros de contexto */
@@ -20,19 +18,20 @@ function ReportsOption() {
 
   const handleOnchangeSelect = (value) => {
     const newVal = { ...paramsOptions, options: value.value };
-    
+
     setParamsOptions(newVal);
   };
-  
-  console.log(selectMenu)
-  const handleOnchangeGeozone = (value) => {
-  
-  };
+
+  console.log(selectMenu);
+  const handleOnchangeGeozone = (value) => {};
 
   return (
     <Box>
       {params.length == 0 ? (
-        <Typography>No hay opciones para este reporte, favor de pasar al siguiente apartado!</Typography>
+        <Typography>
+          No hay opciones para este reporte, favor de pasar al siguiente
+          apartado!
+        </Typography>
       ) : (
         ""
       )}
@@ -75,10 +74,8 @@ function ReportsOption() {
           );
         }
       })}
-
     </Box>
   );
 }
 
 export default ReportsOption;
-
