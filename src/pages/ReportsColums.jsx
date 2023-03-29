@@ -1,13 +1,24 @@
-
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useAppContext } from "../content/Provider";
 
 function ReportColums() {
   /* extraer parametros de contexto */
-  const { selectMenu, setSelectMenu, menuList,handleCheckColumn } = useAppContext([]);
+  const { selectMenu, menuList, handleCheckColumn } = useAppContext([]);
 
   /* traer el listado de las columnas del provider*/
-  console.log("selectMenu.columnas", selectMenu);
+  console.log("Arreglo de las columnas", selectMenu);
+  console.log("Arreglo de la lista del menu", menuList);
+
+  /* Marcar los checks*/
   const handleCheckState = (index) => {
     handleCheckColumn(
       selectMenu.columnas.map((item, currentIndex) =>
@@ -16,24 +27,40 @@ function ReportColums() {
     );
   };
 
-
   /* Manejar chequeo de todos los items */
   const handleCheckAllBtn = (state) => {
-    handleCheckColumn(selectMenu.columnas?.map((item) => ({ ...item, estado: state })));
+    handleCheckColumn(
+      selectMenu.columnas?.map((item) => ({ ...item, estado: state }))
+    );
   };
 
   return (
     <Box>
-      <FormControl >
-        <Typography marginTop={2} ><b>Seleccione columnas a imprimir en el reporte</b></Typography>
+      <FormControl>
+        <Typography margin={1}>
+          <b>Seleccione columnas a imprimir en el reporte</b>
+        </Typography>
         <Stack alignContent={"center"} mb="3">
-          <Grid >
-            <Button variant="contained" color='secondary'
-              size='small' onClick={() => { handleCheckAllBtn(true) }}>
+          <Grid>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={() => {
+                handleCheckAllBtn(true);
+              }}
+            >
               Marcar todos
             </Button>
-            <Button sx={{ marginLeft: 1 }} variant="contained"
-              color='error' size='small' onClick={() => { handleCheckAllBtn(false) }}>
+            <Button
+              sx={{ marginLeft: 1 }}
+              variant="contained"
+              color="error"
+              size="small"
+              onClick={() => {
+                handleCheckAllBtn(false);
+              }}
+            >
               Desmarcar todos
             </Button>
           </Grid>
@@ -42,14 +69,20 @@ function ReportColums() {
 
       <Box>
         <Stack>
-          {selectMenu.columnas?.map((iten,index)=>(
-             <FormControlLabel  control={<Checkbox checked={iten.estado}
-            onChange={() => { handleCheckState(index) }}
-          > </Checkbox>}>
-                {item.nombre}
-          </FormControlLabel>
+          {selectMenu.columnas.map((item, index) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={item.estado}
+                  onChange={() => {
+                    handleCheckState(index);
+                  }}
+                />
+              }
+              label={item.nombre}
+              key={index}
+            />
           ))}
-         
         </Stack>
       </Box>
     </Box>
@@ -57,4 +90,3 @@ function ReportColums() {
 }
 
 export default ReportColums;
-
