@@ -1,61 +1,55 @@
 
-import { Box, Button, Checkbox, FormControl, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Stack, Typography } from "@mui/material";
 import { useAppContext } from "../content/Provider";
-
-
-
 
 function ReportColums() {
   /* extraer parametros de contexto */
-  const { selectMenu, setSelectMenu, handleCheckColumn } = useAppContext();
- console.log(selectMenu)
-  /* controlar el chequeo de las columnas a exportar */
+  const { selectMenu, setSelectMenu, menuList,handleCheckColumn } = useAppContext([]);
+
+  /* traer el listado de las columnas del provider*/
+  console.log("selectMenu.columnas", selectMenu);
   const handleCheckState = (index) => {
-    // console.log("selectMenu.columnas", selectMenu.columnas);
     handleCheckColumn(
       selectMenu.columnas.map((item, currentIndex) =>
         currentIndex === index ? { ...item, estado: !item.estado } : item
       )
     );
   };
-  
+
 
   /* Manejar chequeo de todos los items */
   const handleCheckAllBtn = (state) => {
-    handleCheckColumn(selectMenu.columnas.map((item) => ({ ...item, estado: state })));
+    handleCheckColumn(selectMenu.columnas?.map((item) => ({ ...item, estado: state })));
   };
 
   return (
     <Box>
       <FormControl >
         <Typography marginTop={2} ><b>Seleccione columnas a imprimir en el reporte</b></Typography>
-       
         <Stack alignContent={"center"} mb="3">
           <Grid >
-            <Button variant="contained" color='secondary' 
-            size='small'>
+            <Button variant="contained" color='secondary'
+              size='small' onClick={() => { handleCheckAllBtn(true) }}>
               Marcar todos
             </Button>
             <Button sx={{ marginLeft: 1 }} variant="contained"
-             color='error' size='small' >
+              color='error' size='small' onClick={() => { handleCheckAllBtn(false) }}>
               Desmarcar todos
             </Button>
           </Grid>
         </Stack>
       </FormControl>
-        
-      <Box maxH={400} overflowY="scroll" pl={1}>
-        <Stack spacing={1} align="stretch">
+
+      <Box>
+        <Stack>
+          {selectMenu.columnas?.map((iten,index)=>(
+             <FormControlLabel  control={<Checkbox checked={iten.estado}
+            onChange={() => { handleCheckState(index) }}
+          > </Checkbox>}>
+                {item.nombre}
+          </FormControlLabel>
+          ))}
          
-            <Box  h="30px">
-              <Checkbox
-                
-               
-              >
-                
-              </Checkbox>
-            </Box>
-        
         </Stack>
       </Box>
     </Box>

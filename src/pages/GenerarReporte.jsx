@@ -12,12 +12,14 @@ import ReportsColums from './ReportsColums';
 import ReportsOpcions from './ReportsOpcions';
 import ReportsUnidades from './ReportsUnidades';
 import ReportsSave from './ReportsSave';
-import ReportLayou from './ReportLayou';
-import ReportProvider from '../content/ReportProvider';
+import Provider, { useAppContext } from '../content/Provider';
+import { useReportContext } from '../content/ReportProvider';
 
 const steps = ['Fecha y Unidades', 'Opciones', 'Columnas','Finalizar'];
 
 export default function GenerarReporte() {
+  const { selectMenu } = useAppContext();
+  const { isLoading, tabIndex, setTabIndex } = useReportContext();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -51,7 +53,7 @@ export default function GenerarReporte() {
       case 1:
         return(<ReportsOpcions/>)
       case 2:
-        return (<ReportLayou/>)  
+        return (<ReportsColums/>)  
       case 3:
         return (<ReportsSave/>) 
       default:return "No hay opciones para este reporte"   

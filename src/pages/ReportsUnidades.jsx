@@ -19,7 +19,6 @@ function ReportsUnidades() {
       vehicleList.map((item, currentIndex) => (currentIndex === index ? { ...item, value: !item.value } : item))
     );
   };
-  console.log(showDatePicker)
 
   /* controlar el cambio de periodo */
   const handleChangePeriod = (period) => {

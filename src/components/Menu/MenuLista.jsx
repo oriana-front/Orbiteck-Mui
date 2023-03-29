@@ -145,7 +145,7 @@ export default function MenuLista() {
             </Typography>
             <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
           </Toolbar>
-          <Toolbar sx={{ marginLeft: 131 }}>
+          <Toolbar sx={{ marginLeft: 138 }}>
             <Header />
           </Toolbar>
 

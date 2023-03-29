@@ -94,7 +94,6 @@ export default function Header({ onOpen, ...rest }) {
         aria-controls={open ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        variant="contained"
         disableElevation
         onClick={handleClick}
         size="medium"

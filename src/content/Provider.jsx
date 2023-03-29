@@ -8,31 +8,27 @@ import Welcome from '../pages/Welcom'
 
 export const AppContext = createContext(null);
 export const useAppContext = () => useContext(AppContext);
-function Provider({ children }) {
-  
 
+function Provider({ children }) {
   const [content, setContent] = useState(<Welcome/>);
   const [menuList, setMenuList] = useState([]);
-  const [selectMenu, setSelectMenu] = useState({});
-
-  
+  const [selectMenu,setSelectMenu]=useState({});
   const replaceContent = (content) => {
     setContent(() => content);
   };
 
- 
-  const handleCheckColumn = (updateSelectMenu) => {
-    setSelectMenu({ ...selectMenu, columnas: updateSelectMenu });
+ /* listado de los check de las columnas*/
+ const handleCheckColumn = (updateSelectMenu) => {
+  setSelectMenu({ ...selectMenu, columnas: updateSelectMenu });
   };
 
- 
   const getMenu = () => {
     axios.get(`${baseUrlReports()}/reports_schema`).then((res) => {
       setMenuList(res.data);
+      
     });
   };
   
- 
   useEffect(() => {
     getMenu();
   }, []);
