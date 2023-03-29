@@ -1,12 +1,30 @@
-import { Button, Checkbox, FormControl, FormControlLabel, Grid, Input, ListItemText, Select, Tooltip, Typography } from '@mui/material'
-import ReportTimeOptions from '../components/Reports/ReportTimeOptions'
-import { Box, sizeHeight, Stack } from '@mui/system'
-import React, { useState } from 'react'
-import { useReportContext } from '../content/ReportProvider'
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Input,
+  ListItemText,
+  Select,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import ReportTimeOptions from "../components/Reports/ReportTimeOptions";
+import { Box, sizeHeight, Stack } from "@mui/system";
+import React, { useState } from "react";
+import { useReportContext } from "../content/ReportProvider";
 
 function ReportsUnidades() {
   /* extraer parametros de contexto */
-  const { vehicleList, handleCheckPlate, reportData, updateReportData, showDatePicker, setShowDatePicker } = useReportContext();
+  const {
+    vehicleList,
+    handleCheckPlate,
+    reportData,
+    updateReportData,
+    showDatePicker,
+    setShowDatePicker,
+  } = useReportContext();
 
   /* controlar el marcado de todos los elementos (chequeo) */
   const handleCheckAllBtn = (enable) => {
@@ -16,7 +34,9 @@ function ReportsUnidades() {
   /* controlar el chequeo de cada vehiculo */
   const handleCheckState = (index) => {
     handleCheckPlate(
-      vehicleList.map((item, currentIndex) => (currentIndex === index ? { ...item, value: !item.value } : item))
+      vehicleList.map((item, currentIndex) =>
+        currentIndex === index ? { ...item, value: !item.value } : item
+      )
     );
   };
 
@@ -44,16 +64,16 @@ function ReportsUnidades() {
     updateReportData({ selectEndDate: date });
   };
 
-
-
   return (
-    <Box mt={3} sx={{ width: '100%' }} >
+    <Box mt={3} sx={{ width: "100%" }}>
       {/*Rango de periodo*/}
-      <Typography marginTop={2} ><b>Periodo</b></Typography>
+      <Typography marginTop={2}>
+        <b>Periodo</b>
+      </Typography>
       <FormControl mb={3} size="medium">
         <select
           onChange={(e) => {
-            handleChangePeriod(e.target.value)
+            handleChangePeriod(e.target.value);
           }}
           defaultValue={reportData.selectPeriod}
         >
@@ -70,22 +90,24 @@ function ReportsUnidades() {
       </FormControl>
 
       {showDatePicker ? (
-        <FormControl mb={3} sx={{ m: 1, minWidth: 120 }} size="medium" >
-          <Typography ><b>Rango de fechas</b></Typography>
+        <FormControl mb={3} sx={{ m: 1, minWidth: 120 }} size="medium">
+          <Typography>
+            <b>Rango de fechas</b>
+          </Typography>
           <Stack>
             <Grid>
               <FormControl>
-                 <Input
-                placeholder="Fecha Inicio"
-                size="md"
-                type="date"
-                value={reportData.selectStartDate}
-                onChange={(e) => {
-                  handleChangeStartDate(e.target.value);
-                }}
-              />
+                <Input
+                  placeholder="Fecha Inicio"
+                  size="md"
+                  type="date"
+                  value={reportData.selectStartDate}
+                  onChange={(e) => {
+                    handleChangeStartDate(e.target.value);
+                  }}
+                />
               </FormControl>
-             
+
               <Input
                 placeholder="Fecha Final"
                 size="md"
@@ -95,9 +117,7 @@ function ReportsUnidades() {
                   handleChangeEndDate(e.target.value);
                 }}
               />
-
             </Grid>
-
           </Stack>
         </FormControl>
       ) : (
@@ -105,10 +125,14 @@ function ReportsUnidades() {
       )}
 
       {/*Rango de Horario*/}
-      <Typography marginTop={1}><b>Selecione un horario (formato de 24 horas)</b></Typography>
+      <Typography marginTop={1}>
+        <b>Selecione un horario (formato de 24 horas)</b>
+      </Typography>
       <Grid container marginLeft={4}>
-        <Typography marginTop={1}><b>Inicio</b></Typography>
-        <Grid item >
+        <Typography marginTop={1}>
+          <b>Inicio</b>
+        </Typography>
+        <Grid item>
           <Tooltip placement="bottom-start">
             <FormControl sx={{ m: 1, minWidth: 120 }} size="medium">
               <select
@@ -116,56 +140,83 @@ function ReportsUnidades() {
                   handleChangeStartHour(e.target.value);
                 }}
                 defaultValue={reportData.selectStartHour}
-              > <ReportTimeOptions />
+              >
+                {" "}
+                <ReportTimeOptions />
               </select>
             </FormControl>
           </Tooltip>
         </Grid>
-        <Typography marginTop={1} marginLeft={2}><b>Final</b></Typography>
+        <Typography marginTop={1} marginLeft={2}>
+          <b>Final</b>
+        </Typography>
         <Grid item>
           <Tooltip placement="bottom-start">
-            <FormControl sx={{ m: 1, width: 100, height: 40 }} size="medium" >
+            <FormControl sx={{ m: 1, width: 100, height: 40 }} size="medium">
               <select
                 onChange={(e) => {
                   handleChangeEndtHour(e.target.value);
                 }}
                 defaultValue={reportData.selectEndHour}
-              > <ReportTimeOptions />
+              >
+                {" "}
+                <ReportTimeOptions />
               </select>
             </FormControl>
           </Tooltip>
         </Grid>
       </Grid>
       {/*Selecionar unidades*/}
-      <Typography marginTop={2}><b>Selecione unidades</b></Typography>
+      <Typography marginTop={2}>
+        <b>Selecione unidades</b>
+      </Typography>
       <FormControl mb={3}>
         <Stack alignContent={"center"} mb="3">
-          <Grid >
-            <Button variant="contained" color='secondary'
-              size='small' onClick={() => { handleCheckAllBtn(true) }}>
+          <Grid>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={() => {
+                handleCheckAllBtn(true);
+              }}
+            >
               Marcar todos
             </Button>
-            <Button sx={{ marginLeft: 1 }} variant="contained"
-              color='error' size='small' onClick={() => { handleCheckAllBtn(false) }}>
+            <Button
+              sx={{ marginLeft: 1 }}
+              variant="contained"
+              color="error"
+              size="small"
+              onClick={() => {
+                handleCheckAllBtn(false);
+              }}
+            >
               Desmarcar todos
             </Button>
           </Grid>
         </Stack>
 
-        <Box  >
+        <Box>
           <Stack>
             {vehicleList.map((item, index) => (
               <Box key={item.id} height={30}>
-                <FormControlLabel control={<Checkbox checked={item.value} onChange={() => handleCheckState(index)} />} label={item.plate} />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={item.value}
+                      onChange={() => handleCheckState(index)}
+                    />
+                  }
+                  label={item.plate}
+                />
               </Box>
-            ))
-            }
-
+            ))}
           </Stack>
         </Box>
       </FormControl>
     </Box>
-  )
+  );
 }
 
-export default ReportsUnidades
+export default ReportsUnidades;
