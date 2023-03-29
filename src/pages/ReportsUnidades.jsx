@@ -5,23 +5,36 @@ import React, { useState } from 'react'
 import {useReportContext} from '../content/ReportProvider'
 
 function ReportsUnidades() {
-  const [age, setAge] = useState('');
-  const{vehicleList,handleChangePlate,resportData,updateReportData,showDatePicker,
-    setShowDatePicker}=useReportContext();
+  /* extraer parametros de contexto */
+  const { vehicleList, handleCheckPlate, reportData, updateReportData } = useReportContext();
 
-    console.log(vehicleList)
-  
- 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  /* controlar el marcado de todos los elementos (chequeo) */
+  const handleCheckAllBtn = (enable) => {
+    handleCheckPlate(vehicleList.map((item) => ({ ...item, value: enable })));
   };
 
-  /*Controlar combio de periodo*/
-  const handleChangePeriod=(period)=>{
-    setShowDatePicker(period==="custom")
-    updateReportData({selectPeriod:period})
-  } 
+  /* controlar el chequeo de cada vehiculo */
+  const handleCheckState = (index) => {
+    handleCheckPlate(
+      vehicleList.map((item, currentIndex) => (currentIndex === index ? { ...item, value: !item.value } : item))
+    );
+  };
+  console.log(vehicleList)
 
+  /* controlar el cambio de periodo */
+  const handleChangePeriod = (period) => {
+    updateReportData({ selectPeriod: period });
+  };
+
+  /* controlar el cambio de horario inicial */
+  const handleChangeStartHour = (hour) => {
+    updateReportData({ selectStartHour: hour });
+  };
+
+  /* controlar el cambio de horario final */
+  const handleChangeEndtHour = (hour) => {
+    updateReportData({ selectEndHour: hour });
+  };
 
 
   return (
@@ -34,7 +47,7 @@ function ReportsUnidades() {
                onChange={(e)=>{
                 handleChangePeriod(e.target.value)
                }}
-               defaultValue={resportData}
+               defaultValue={reportData.selectPeriod}
                >
 
             <option value="today">Hoy</option>
@@ -59,7 +72,8 @@ function ReportsUnidades() {
         <Grid item >
           <Tooltip placement="bottom-start">
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-              <Select native defaultValue="" id="grouped-native-select" >
+              <Select 
+              > <ReportTimeOptions/>
                 <ReportTimeOptions />
               </Select>
             </FormControl>
@@ -68,9 +82,9 @@ function ReportsUnidades() {
         <Typography marginTop={2} marginLeft={2}><b>Final</b></Typography>
         <Grid item>
           <Tooltip placement="bottom-start">
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <Select native defaultValue="" id="grouped-native-select" size="small">
-                <ReportTimeOptions />
+            <FormControl sx={{ m: 1, width:100,height:40 }} size="small">
+            <Select 
+                > <ReportTimeOptions/>
               </Select>
             </FormControl>
           </Tooltip>
@@ -81,20 +95,28 @@ function ReportsUnidades() {
       <FormControl mb={3}>
         <Stack alignContent={"center"} mb="3">
           <Grid >
-            <Button variant="contained" color='secondary' size='small'>
+            <Button variant="contained" color='secondary' 
+            size='small' onClick={()=>{handleCheckAllBtn(true)}}>
               Marcar todos
             </Button>
-            <Button sx={{ marginLeft: 1 }} variant="contained" color='error' size='small'>
+            <Button sx={{ marginLeft: 1 }} variant="contained"
+             color='error' size='small' onClick={()=>{handleCheckAllBtn(false)}}>
               Desmarcar todos
             </Button>
           </Grid>
         </Stack>
 
-        <Box maxHeight={300} overflow="scroll" pl={1}>
+        <Box  >
           <Stack>
-            <Box>
-              <Checkbox checked ></Checkbox>
+            {vehicleList.map((item,index)=>(
+               <Box key={item.id}>
+              <Checkbox checked={item.value} onChange={()=>handleCheckState(index)} >
+                {item.vehicleList?.plate}
+              </Checkbox>
             </Box>
+            ))
+            }
+           
           </Stack>
         </Box>
       </FormControl>

@@ -12,6 +12,7 @@ import ReportsColums from './ReportsColums';
 import ReportsOpcions from './ReportsOpcions';
 import ReportsUnidades from './ReportsUnidades';
 import ReportsSave from './ReportsSave';
+import ReportLayou from './ReportLayou';
 import ReportProvider from '../content/ReportProvider';
 
 const steps = ['Fecha y Unidades', 'Opciones', 'Columnas','Finalizar'];
@@ -50,7 +51,7 @@ export default function GenerarReporte() {
       case 1:
         return(<ReportsOpcions/>)
       case 2:
-        return (<ReportsColums/>)  
+        return (<ReportLayou/>)  
       case 3:
         return (<ReportsSave/>) 
       default:return "No hay opciones para este reporte"   

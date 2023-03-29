@@ -9,13 +9,13 @@ import ReportProvider from './content/ReportProvider'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-<React.StrictMode>
+
  <Provider>
       <React.StrictMode>
         <App />
     </React.StrictMode>
   </Provider> 
-</React.StrictMode>
+
 
    
   
