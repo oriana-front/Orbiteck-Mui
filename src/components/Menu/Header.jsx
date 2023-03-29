@@ -101,13 +101,10 @@ export default function Header({ onOpen, ...rest }) {
         endIcon={<KeyboardArrowDownIcon />}
       >  
         <Avatar sx={{ width: 30, height: 30,marginRight:1 }} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"}  />
-        <Typography variant="body2"  >
-        {`${user_data.first_name} ${user_data.last_name}`.trim()}
-           <Typography variant="caption" display="block">
-           {`${user_data.first_name} ${user_data.last_name}`.trim()}
+        <Typography variant="body2"  > {`${user_data.first_name}${user_data.last_name}`.trim()}
+       
             <Typography variant="caption" display="block"> 
             {user_data.username}
-            </Typography>
             </Typography>
            
       </Typography>

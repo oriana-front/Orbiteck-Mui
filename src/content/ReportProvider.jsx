@@ -52,7 +52,6 @@ function ReportProvider({ children }) {
 
   /* obtener listado de vehiculos desde BACK */
   const getVehicles = () => {
-    // -- https://orbitecsac.com/devices-lite?limit=100&offset=0&search&ordering=-created&users__username=guapolindo
     const options = {
       headers: {
         Authorization: `token ${getLoginToken()}`,
@@ -61,7 +60,6 @@ function ReportProvider({ children }) {
     axios
       .get(`${baseUrl()}/devices-lite?limit=10000&ordering=name&users__username=${user_data.username}`, options)
       .then((res) => {
-        // console.log("ReportLayout => res.data", res.data);
         const resData = res.data.data.results;
         const newVehicleList = resData.map((item) => ({
           id: item.id,
@@ -70,19 +68,16 @@ function ReportProvider({ children }) {
         }));
         setVehicleList(newVehicleList);
         setisLoading(false);
-        // console.log("newVehicleList", newVehicleList);
       });
   };
 
   const getGeozones = () => {
-    // -- https://orbitecsac.com/geozones-lite?limit=100&users__username=orbitec
     const options = {
       headers: {
         Authorization: `token ${getLoginToken()}`,
       },
     };
     axios.get(`${baseUrl()}/geozones-lite?limit=100&users__username=${user_data.username}`, options).then((res) => {
-      //console.log("getGeozones => res.data", res.data.data?.results?.features);
       const resData = res.data.data?.results?.features;
       const newGeozoneList = resData.map((item) => ({
         id: item.id,
@@ -93,7 +88,6 @@ function ReportProvider({ children }) {
   };
 
   const updateReportData = (data) => {
-    // console.log("updateReportData", data);
     setReportData({ ...reportData, ...data });
   };
 
@@ -106,22 +100,15 @@ function ReportProvider({ children }) {
   const validateVehiclesChecked = () => {
     const findObj = vehicleList.find((item) => item.value === true);
     return typeof findObj === "undefined";
-    // if (typeof findObj === "undefined") {
-    //   alert("Tienes que seleccionar por lo menos una unidad...");
-    // }
   };
 
   const validateColumnChecked = () => {
     const findObj = selectMenu.columnas.find((item) => item.estado === true);
     return typeof findObj === "undefined";
-    // if (typeof findObj === "undefined") {
-    //   alert("Tienes que seleccionar por lo menos una columna exportar...");
-    // }
   };
 
   /* obtener listado de vehiculos desde BACK */
   const getReportJson = (select_menu, form_data) => {
-    // -- https://orbitecsac.com/devices-lite?limit=100&offset=0&search&ordering=-created&users__username=guapolindo
     const report_id = select_menu.id;
     const report_name = select_menu.descripcion;
     const placas = [];
@@ -132,8 +119,6 @@ function ReportProvider({ children }) {
       item.estado && column_hidden.push(`"${item.nombre}"`);
     });
 
-    // const date_interval = getDateInterval(); // -- ya no se utiliza, BACK genera el rango de fechas segun periodo
-
     const options = {
       headers: {
         Authorization: `token ${getLoginToken()}`,
@@ -142,13 +127,9 @@ function ReportProvider({ children }) {
         pk_user: getUserData().id,
         placas: `[${placas.join(",")}]`,
         columnas: `[${column_hidden.join(",")}]`,
-        // start_date: `${date_interval.ds} ${reportData.selectStartHour}:00`,
-        // end_date: `${date_interval.de} ${reportData.selectEndHour}:00`,
         start_date: `${reportData.selectStartDate}`,
         end_date: `${reportData.selectEndDate}`,
         format: "json",
-        // geozonas => []
-        // status => []
         options: form_data.params?.options,
         // --
         period: reportData.selectPeriod,
@@ -162,21 +143,18 @@ function ReportProvider({ children }) {
     axios
       .get(`${baseUrlReports()}/${report_id}`, options)
       .then((res) => {
-        // console.log("getReportJson => res.data", res.data);
         setisLoading(false);
         replaceContent(
           <ReportDataTable res={res.data} report_id={report_id} report_name={report_name} options={options} />
         );
       })
       .catch(function (error) {
-        // console.log("Show error notification!");
         replaceContent(<ReportDataTable res={[]} report_id={report_id} report_name={report_name} options={[]} />);
       });
   };
 
   /* funcion para generar datos del reporte (back entrega JSON) */
   const generateReportData = () => {
-    // console.log("paramsOptions", paramsOptions);
     if (validateVehiclesChecked()) {
       /* validate minimun vehicle checked */
       alert("Tienes que seleccionar por lo menos una unidad...");
@@ -188,7 +166,6 @@ function ReportProvider({ children }) {
       const vehicleListFilter = vehicleList.filter((item) => item.value === true);
       const columnListFilter = selectMenu.columnas.map((item) => ({ ...item, estado: !item.estado }));
       const formData = { vehicles: vehicleListFilter, columns: columnListFilter, params: paramsOptions, reportData };
-      // console.log("formData", formData);
       getReportJson(selectMenu, formData);
     }
   };
