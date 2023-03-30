@@ -63,7 +63,7 @@ function ReportsOption() {
           return (
             <FormControl key={index}>
               <FormLabel>Geozona</FormLabel>
-              <select
+              <Select
                 options={geozoneOptions}
                 isMulti
                 placeholder="Seleccionar"
