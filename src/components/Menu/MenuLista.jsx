@@ -156,7 +156,7 @@ export default function MenuLista() {
               mr="2"
             />
           </Toolbar>
-          <Toolbar sx={{ marginLeft: 138 }}>
+          <Toolbar sx={{ marginLeft: "auto"}}>
             <Header />
           </Toolbar>
         </Toolbar>
