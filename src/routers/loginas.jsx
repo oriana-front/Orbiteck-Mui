@@ -9,7 +9,6 @@ function LoginAs() {
   const navigate = useNavigate();
   const { token } = useParams();
 
-
   useEffect(() => {
     axios
       .post(`${baseUrl()}/users/login_as/`, {
@@ -25,7 +24,7 @@ function LoginAs() {
       });
   }, []);
 
-  return <Outlet/>;
+  return <Outlet />;
 }
 
 export default LoginAs;

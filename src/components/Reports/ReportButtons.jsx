@@ -6,9 +6,11 @@ import { useReportContext } from "../../content/ReportProvider";
 function ReportButtons({ prev_index = null, next_index = null }) {
 
   const { setTabIndex, generateReportData } = useReportContext();
+  
 
  
   const handleTabChange = (index) => {
+
     setTabIndex(index);
   };
 
@@ -34,7 +36,6 @@ function ReportButtons({ prev_index = null, next_index = null }) {
 
         {next_index !== null && (
           <Button
-            colorScheme="pink"
             variant="solid"
             onClick={() => {
               handleTabChange(next_index);

@@ -41,34 +41,18 @@ function TablePaginationActions(props) {
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
+      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label="first page">
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
+        {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
@@ -93,62 +77,13 @@ function createData(nombre, diaSemana, horaEnvio, correo, formato) {
 }
 
 const rows = [
-  createData(
-    "Prueba1",
-    "11/11/22",
-    "00:00:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba2",
-    "15/11/22",
-    "01:00:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba3",
-    "16/11/22",
-    "00:50:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba4",
-    "17/11/22",
-    "00:40:35",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba5",
-    "18/11/22",
-    "02:30:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba6",
-    "19/11/22",
-    "09:10:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
-  createData(
-    "Prueba7",
-    "20/11/22",
-    "04:10:15",
-    "gerencia.ti@orbitec.pe",
-    "pdf",
-    ""
-  ),
+  createData("Prueba1", "11/11/22", "00:00:15", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba2", "15/11/22", "01:00:15", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba3", "16/11/22", "00:50:15", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba4", "17/11/22", "00:40:35", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba5", "18/11/22", "02:30:15", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba6", "19/11/22", "09:10:15", "gerencia.ti@orbitec.pe", "pdf", ""),
+  createData("Prueba7", "20/11/22", "04:10:15", "gerencia.ti@orbitec.pe", "pdf", ""),
 ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
 export default function CustomPaginationActionsTable() {
@@ -156,8 +91,7 @@ export default function CustomPaginationActionsTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -190,10 +124,7 @@ export default function CustomPaginationActionsTable() {
           </TableHead>
 
           <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row) => (
+            {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map((row) => (
               <TableRow key={row.nombre}>
                 <TableCell component="th" scope="row">
                   {row.nombre}

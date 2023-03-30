@@ -10,7 +10,7 @@ function MenuCategoria({ saveIcon = false, homeIcon = false, children }) {
   return (
    <>
    <Icon  sx={{ color:grey[600],fontSize:20}} as={ homeIcon ? House : newIcon} />
-   <Box as="span"  textAlign="left" fontSize="sm" w="full" >
+   <Box  fontSize="sm"  >
      {children} 
    </Box >
    {!saveIcon ? <AccordionActions/> : null}

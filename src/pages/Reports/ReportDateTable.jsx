@@ -1,4 +1,3 @@
-
 import { Box, createTheme, ThemeProvider, useTheme } from "@mui/material";
 import MaterialReactTable from "material-react-table";
 import { MRT_Localization_ES } from "material-react-table/locales/es";
@@ -7,8 +6,6 @@ import { esES } from "@mui/material/locale";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { Button } from "@mui/material";
 import axios from "axios";
-import { useAppContext } from "../content/Provider";
-
 
 function ReportDataTable({ res, report_id, report_name, options }) {
   /* extraer parametros de contexto */
@@ -23,16 +20,6 @@ function ReportDataTable({ res, report_id, report_name, options }) {
     const visibleCells = rows[0].getVisibleCells().map((row) => {
       return row.column.id;
     });
-    /*exportToExcel(
-      rows.map((row) => {
-        const newRow = {};
-        visibleCells.map((index) => {
-          newRow[index] = row.original[index];
-        });
-        return newRow;
-      }),
-      selectMenu.descripcion
-    );*/
   };
 
   const handleExportExcel = (rows) => {
@@ -58,10 +45,9 @@ function ReportDataTable({ res, report_id, report_name, options }) {
 
   return (
     <Box p={5} bg={useColorModeValue("white", "gray.900")} rounded="md" maxH="100%">
-    
-        {selectMenu.descripcion}
-   
-      <ThemeProvider theme={createTheme(theme, esES)}>
+      {selectMenu.descripcion}
+
+      {/* <ThemeProvider theme={createTheme(theme, esES)}> */}
         <MaterialReactTable
           columns={columns}
           data={res}
@@ -71,11 +57,7 @@ function ReportDataTable({ res, report_id, report_name, options }) {
             <Box sx={{ display: "flex", gap: "1rem", p: "0.5rem", flexWrap: "wrap" }}>
               {res.length > 0 && (
                 <>
-                  <Button
-                    color="primary"
-                    startIcon={<FileDownloadIcon />}
-                    variant="contained"
-                  >
+                  <Button color="primary" startIcon={<FileDownloadIcon />} variant="contained">
                     Exportar Todo
                   </Button>
                 </>
@@ -88,7 +70,7 @@ function ReportDataTable({ res, report_id, report_name, options }) {
             size: 30, //make columns wider by default
           }}
         />
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </Box>
   );
 }

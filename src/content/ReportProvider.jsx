@@ -4,6 +4,8 @@ import { useAppContext } from "./Provider";
 import { baseUrl, baseUrlReports } from "../helpers/config";
 import { getLoginToken, getUserData } from "../helpers/localStorage";
 import { DateTime } from "luxon";
+import ReportDataTable from "../pages/Reports/ReportDateTable";
+
 export const ReportContext = createContext(null);
 export const useReportContext = () => useContext(ReportContext);
 
@@ -31,21 +33,6 @@ function ReportProvider({ children }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const user_data = getUserData();
-
-  const getDateInterval = () => {
-    const interval = reportData.selectPeriod;
-    if (interval === "+0 day") {
-      return { ds: dt.toISODate(), de: dt.toISODate() };
-    } else if (interval === "-24 hours") {
-      return { ds: dt.toISODate(), de: dt.toISODate() };
-    } else if (interval === "yesterday") {
-      return { ds: dt.minus({ days: 1 }).toISODate(), de: dt.minus({ days: 1 }).toISODate() };
-    } else if (interval === "-2 day") {
-      return { ds: dt.minus({ days: 2 }).toISODate(), de: dt.minus({ days: 2 }).toISODate() };
-    } else if (interval === "-1 day") {
-      return { ds: dt.minus({ days: 1 }).toISODate(), de: dt.toISODate() };
-    }
-  };
 
   /* obtener listado de vehiculos desde BACK */
   const getVehicles = () => {
@@ -154,23 +141,29 @@ function ReportProvider({ children }) {
   const generateReportData = () => {
     if (validateVehiclesChecked()) {
       /* validate minimun vehicle checked */
-      alert("Tienes que seleccionar por lo menos una unidad...");
+      alert("Tienes que seleccionar por lo menos una unidad..."); // -- TODO: cambiar por alert/modal
     } else if (validateColumnChecked()) {
       /* validate minimun column checked */
-      alert("Tienes que seleccionar por lo menos una columna exportar...");
+      alert("Tienes que seleccionar por lo menos una columna exportar..."); // -- TODO: cambiar por alert/modal
     } else {
       /* Colectar datos para posterior ENVIO */
       const vehicleListFilter = vehicleList.filter((item) => item.value === true);
-      const columnListFilter = selectMenu.columnas.map((item) => ({ ...item, estado: !item.estado }));
-      const formData = { vehicles: vehicleListFilter, columns: columnListFilter, params: paramsOptions, reportData };
+      const columnListFilter = selectMenu.columnas.map((item) => ({
+        ...item,
+        estado: !item.estado,
+      }));
+      const formData = {
+        vehicles: vehicleListFilter,
+        columns: columnListFilter,
+        params: paramsOptions,
+        reportData,
+      };
       getReportJson(selectMenu, formData);
     }
   };
 
   /* Instrucciones al cargar/renderizar componente */
   useEffect(() => {
-    // console.log("useEffect => ReportProvider");
-
     // -- obtener listado de vehiculos desde BACK
     getVehicles();
 

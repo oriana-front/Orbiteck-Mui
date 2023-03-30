@@ -17,22 +17,30 @@ import { useReportContext } from "../../content/ReportProvider";
 
 const steps = ["Fecha y Unidades", "Opciones", "Columnas", "Finalizar"];
 
-export default function GenerarReporte({ prev_index = null, next_index = null } ) {
+export default function GenerarReporte({
+  prev_index = null,
+  next_index = null,
+}) {
   const { setTabIndex, generateReportData } = useReportContext();
-  const{selectMenu}=useAppContext();
+  const { selectMenu } = useAppContext();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  
- 
+
   const isStepOptional = (step) => {
-    return step === 1;
+    return step === 3;
   };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
+  /* controlar el boton finalizar para genrar datos */
+  const handleFinish = () => {
+    generateReportData();
+  };
+
   const handleNext = (index) => {
+    // -- TODO: manejar finalizar invocando funciones del contexto reporte
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -82,20 +90,15 @@ export default function GenerarReporte({ prev_index = null, next_index = null } 
   return (
     <>
       <DrawerHeader />
-      <Typography  margin={2} variant="h6">
+      <Typography margin={2} variant="h6">
         {selectMenu.descripcion}
       </Typography>
-      <Container sx={{ bgcolor: grey[50]  }} maxWidth="false"  >
+      <Container sx={{ bgcolor: grey[50] }} maxWidth="false">
         <Box sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
               const stepProps = {};
               const labelProps = {};
-              if (isStepOptional(index)) {
-                labelProps.optional = (
-                  <Typography variant="caption">Optional</Typography>
-                );
-              }
               if (isStepSkipped(index)) {
                 stepProps.completed = false;
               }
@@ -109,9 +112,6 @@ export default function GenerarReporte({ prev_index = null, next_index = null } 
 
           {activeStep === steps.length ? (
             <React.Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                Proceso fianalizado!!!
-              </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Button onClick={handleReset}>Al inicio</Button>
@@ -137,9 +137,11 @@ export default function GenerarReporte({ prev_index = null, next_index = null } 
                   </Button>
                 )}
 
-                <Button onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
-                </Button>
+                {activeStep === steps.length - 1 ? (
+                  <Button onClick={handleFinish}>Vista previa</Button>
+                ) : (
+                  <Button onClick={handleNext}>Siguiente</Button>
+                )}
               </Box>
             </React.Fragment>
           )}

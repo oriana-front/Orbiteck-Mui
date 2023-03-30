@@ -12,27 +12,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemText from "@mui/material/ListItemText";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Avatar,
-  BottomNavigation,
-  ListItemIcon,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, BottomNavigation, ListItemIcon } from "@mui/material";
 import MenuCategoria from "./MenuCategoria";
 import { useAppContext } from "../../content/Provider";
 import Welcome from "../../pages/Welcom";
 import { useNavigate } from "react-router-dom";
-import NewReports from "../../pages/NewReports";
-import ReportLayout from "../../pages/ReportLayout";
-import GenerarReporte from "../../pages/GenerarReporte";
-import {
-  ExpandMoreOutlined,
-  List,
-  ListAlt,
-  RestoreOutlined,
-} from "@mui/icons-material";
+import NewReports from "../../pages/Reports/NewReports";
+import ReportLayout from "../../pages/Reports/ReportLayout";
+import GenerarReporte from "../../pages/Reports/GenerarReporte";
+import { ExpandMoreOutlined, List, ListAlt, RestoreOutlined } from "@mui/icons-material";
 import Header from "./Header";
 
 const drawerWidth = 380;
@@ -107,8 +95,7 @@ const settings = ["Cerrar sesión"];
 export default function MenuLista() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
-  const { menuList, selectMenu, setSelectMenu, replaceContent } =
-    useAppContext();
+  const { menuList, selectMenu, setSelectMenu, replaceContent } = useAppContext();
   const [content, setContent] = useState("Welcome");
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -132,7 +119,7 @@ export default function MenuLista() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color="default">
+      <AppBar position="fixed" open={open} style={{ backgroundColor: "rgb(0, 27, 113)" }}>
         <Toolbar>
           <Toolbar>
             <IconButton
@@ -150,13 +137,9 @@ export default function MenuLista() {
             <Typography margin={1} variant="h6" noWrap component="div">
               ORBITEC
             </Typography>
-            <Avatar
-              size={"sm"}
-              src={"https://app.orbitec.pe/img/logo.99c902d5.svg"}
-              mr="2"
-            />
+            <Avatar size={"sm"} src={"https://app.orbitec.pe/img/logo.99c902d5.svg"} mr="2" />
           </Toolbar>
-          <Toolbar sx={{ marginLeft: "auto"}}>
+          <Toolbar sx={{ marginLeft: "auto" }}>
             <Header />
           </Toolbar>
         </Toolbar>
@@ -164,11 +147,7 @@ export default function MenuLista() {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -178,16 +157,9 @@ export default function MenuLista() {
 
           ))} */}
           <Accordion disableGutters>
-            <AccordionSummary
-              type="IconButton"
-              disabled={false}
-              onClick={() => setContent("Welcome")}
-            >
+            <AccordionSummary type="IconButton" disabled={false} onClick={() => setContent("Welcome")}>
               <MenuCategoria saveIcon={true} homeIcon={true} />
-              <ListItemText
-                secondary="Inicio"
-                sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}
-              ></ListItemText>
+              <ListItemText secondary="Inicio" sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}></ListItemText>
             </AccordionSummary>
           </Accordion>
 
@@ -196,16 +168,9 @@ export default function MenuLista() {
             
           ))} */}
           <Accordion disableGutters>
-            <AccordionSummary
-              ype="IconButton"
-              disabled={false}
-              onClick={() => setContent("NewReports")}
-            >
+            <AccordionSummary ype="IconButton" disabled={false} onClick={() => setContent("NewReports")}>
               <MenuCategoria saveIcon={true} homeIcon={false} />
-              <ListItemText
-                secondary="Reportes guardados"
-                sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}
-              ></ListItemText>
+              <ListItemText secondary="Reportes guardados" sx={{ opacity: open ? 1 : 0, marginLeft: 2 }}></ListItemText>
             </AccordionSummary>
           </Accordion>
 
@@ -217,10 +182,7 @@ export default function MenuLista() {
               ))} */}
               <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
                 <MenuCategoria></MenuCategoria>
-                <ListItemText
-                  secondary={menu_category.descripcion}
-                  sx={{ opacity: open ? 1 : 0 }}
-                ></ListItemText>
+                <ListItemText secondary={menu_category.descripcion} sx={{ opacity: open ? 1 : 0 }}></ListItemText>
               </AccordionSummary>
               {/* consumir listado de reportes*/}
 
@@ -246,10 +208,7 @@ export default function MenuLista() {
                       <ListItemIcon>
                         <List />
                       </ListItemIcon>
-                      <ListItemText
-                        secondary={menu_item.descripcion}
-                        sx={{ opacity: open ? 1 : 0 }}
-                      ></ListItemText>
+                      <ListItemText secondary={menu_item.descripcion} sx={{ opacity: open ? 1 : 0 }}></ListItemText>
                     </BottomNavigation>
                   );
                 })}
@@ -262,6 +221,7 @@ export default function MenuLista() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {content == "Welcome" && <Welcome />}
         {content == "NewReports" && <NewReports />}
+        {content == "ReportLayout" && <ReportLayout />}
         {content == "ReportLayout" && <ReportLayout />}
       </Box>
     </Box>

@@ -97,7 +97,7 @@ function ReportColums() {
           ))}
         </Stack>
       </Box>
-      <ReportButtons prev_index={1} next_index={3} />
+      
     </Box>
   );
 }

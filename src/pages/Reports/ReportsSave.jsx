@@ -43,7 +43,7 @@ function ReportsSave() {
         </RadioGroup>
       </Box>
 
-      <ReportButtons prev_index={2} />
+    
     </Box>
   );
 }

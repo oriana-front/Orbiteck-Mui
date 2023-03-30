@@ -1,12 +1,12 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "react-router-dom";
 import MenuLista from "../components/Menu/MenuLista";
 import Error404 from "../error/Error404";
-import GenerarReporte from "../pages/GenerarReporte";
 import Login from "../pages/login/Login";
-import NewReports from "../pages/NewReports";
-import ReportLayout from "../pages/ReportLayout";
-import ReportColums from "../pages/ReportsColums";
+import GenerarReporte from "../pages/Reports/GenerarReporte";
+import NewReports from "../pages/Reports/NewReports";
+import ReportLayout from "../pages/Reports/ReportLayout";
+import Reports from "../pages/Reports/Reports";
 import Welcom from "../pages/Welcom";
 import LoginAs from "./loginas";
 import Root from "./Root";
@@ -18,15 +18,12 @@ const RouterApp = () => {
       <Route path="/" element={<Root />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/loginas/:token" element={<LoginAs />}></Route>
-      <Route path="/new-reports" element={<MenuLista />}></Route>
-      
-      <Route path="/Welcome" element={<Welcom />}></Route>
-      <Route path="/new-reports/NewReports" element={<NewReports />}></Route>
-      <Route
-        path="/new-reports/ReportLayout"
-        element={<ReportLayout />}
-      ></Route>
-      <Route path="Error404" element={<Error404 />}></Route>
+      <Route path="/new-reports" element={<Reports />}></Route>
+      {/* <Route path="/Welcome" element={<Welcom />}></Route>
+      <Route path="/GenerarReporte" element={<GenerarReporte/>}></Route>
+      <Route path="/new-reports/NewReports" element={<NewReports/>}></Route>
+      <Route path="/new-reports/ReportLayout" element={<ReportLayout/>} ></Route>
+      <Route path="Error404" element={<Error404 />}></Route> */}
     </Routes>
   );
 };

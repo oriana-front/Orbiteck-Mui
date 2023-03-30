@@ -227,7 +227,7 @@ function ReportsUnidades() {
           ))}
         </Stack>
       </Box>{" "}
-      <ReportButtons next_index={1} />
+      
     </Box>
   );
 }

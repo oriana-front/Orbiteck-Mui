@@ -80,7 +80,7 @@ function ReportsOption() {
           );
         }
       })}
-      <ReportButtons prev_index={0} next_index={2} />
+   
     </Box>
   );
 }

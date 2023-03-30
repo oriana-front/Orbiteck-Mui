@@ -76,10 +76,7 @@ export default function Login() {
               })}
             />
           </FormControl>
-          <FormHelperText>
-            {" "}
-            {errors.username && errors.username.message}
-          </FormHelperText>
+          <FormHelperText> {errors.username && errors.username.message}</FormHelperText>
 
           <FormControl id="password">
             <FormLabel>Clave</FormLabel>
@@ -95,21 +92,10 @@ export default function Login() {
               })}
             />
           </FormControl>
-          <FormHelperText>
-            {errors.password && errors.password.message}{" "}
-          </FormHelperText>
+          <FormHelperText>{errors.password && errors.password.message} </FormHelperText>
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Recordar"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            loading={isSubmitting}
-          >
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Recordar" />
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} loading={isSubmitting}>
             Ingresar
           </Button>
           <Grid container>
